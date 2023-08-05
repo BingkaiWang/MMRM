@@ -24,7 +24,7 @@ IMMRM <- function(outcomes, treatment, baseline_variables){
   nonmissing_indi <- !is.na(outcomes)
   est_j <- map(treatment_levels, function(j){
     Beta <- cov(outcomes[treatment == j, ], baseline_variables[treatment == j, ], use = "pairwise.complete.obs") %*% solve(cov_x)
-    colMeans(outcomes[treatment == j, ], na.rm = T) #- colMeans(baseline_variables[treatment == j, ]) %*% t(Beta)
+    colMeans(baseline_variables) %*% t(Beta)
   })
   sigma_j <- map(treatment_levels, function(j){
     Beta <- cov(outcomes[treatment == j, ], baseline_variables[treatment == j, ], use = "pairwise.complete.obs") %*% solve(cov_x)
